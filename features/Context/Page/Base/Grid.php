@@ -960,7 +960,11 @@ class Grid extends Index
      */
     public function openColumnsPopin()
     {
-        $this->getElement('Configure columns')->click();
+        return $this->spin(function () {
+            $this->getElement('Configure columns')->click();
+
+            return true;
+        }, 'Cannot open the column configuration popin.');
     }
 
     /**

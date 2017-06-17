@@ -200,6 +200,7 @@ Feature: Datagrid views
     When I fill in the following information:
       | Default product grid view | With name |
     And I press the "Save" button
+    Then I should not see the text "There are unsaved changes."
     And I am on the products grid
     And I logout
     And I am logged in as "Mary"
