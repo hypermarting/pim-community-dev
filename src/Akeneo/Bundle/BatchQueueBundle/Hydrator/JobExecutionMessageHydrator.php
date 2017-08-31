@@ -29,6 +29,10 @@ class JobExecutionMessageHydrator
     /** @var SimpleFactoryInterface */
     protected $jobExecutionmessageFactory;
 
+    /**
+     * @param EntityManagerInterface $entityManager
+     * @param SimpleFactoryInterface $jobExecutionMessageFactory
+     */
     public function __construct(EntityManagerInterface $entityManager, SimpleFactoryInterface $jobExecutionMessageFactory)
     {
         $this->entityManager = $entityManager;
