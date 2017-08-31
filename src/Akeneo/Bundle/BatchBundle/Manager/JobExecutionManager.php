@@ -75,7 +75,7 @@ class JobExecutionManager
         $jobExecution->setStatus(new BatchStatus(BatchStatus::FAILED));
         $jobExecution->setExitStatus(new ExitStatus(ExitStatus::FAILED));
         $jobExecution->setEndTime(new \DateTime('now'));
-        $jobExecution->addFailureException(new \Exception('An exception occured during the job execution'));
+        $jobExecution->addFailureException(new \Exception('An exception occurred during the job execution'));
 
         $this->entityManager->persist($jobExecution);
         $this->entityManager->flush();
