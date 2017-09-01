@@ -42,6 +42,7 @@ services:
     akeneo_batch_queue.launcher.queue_job_launcher:
         class: '%akeneo_batch_queue.launcher.queue_job_launcher.class%'
         arguments:
+            - '@akeneo_batch.job_repository'
             - '@akeneo_batch.job_parameters_factory'
             - '@akeneo_batch.job.job_registry'
             - '@akeneo_batch.job.job_parameters_validator'

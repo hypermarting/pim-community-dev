@@ -236,4 +236,27 @@ class JobLauncher
             sleep(1);
         }
     }
+
+    /**
+     * Launch the daemon command to consume and launch one job execution.
+     *
+     * @return BufferedOutput
+     */
+    public function launchConsumerOnce(): BufferedOutput
+    {
+        $application = new Application($this->kernel);
+        $application->setAutoExit(false);
+
+        $arrayInput = [
+            'command'  => 'akeneo:batch:job-queue-consumer',
+            'consumer_name' => 'consumer',
+            '--run-once' => true,
+        ];
+
+        $input = new ArrayInput($arrayInput);
+        $output = new BufferedOutput();
+        $application->run($input, $output);
+
+        return $output;
+    }
 }

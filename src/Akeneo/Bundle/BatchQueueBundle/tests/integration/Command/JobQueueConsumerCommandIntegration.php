@@ -10,6 +10,7 @@ use Akeneo\Component\Batch\Model\JobExecution;
 use Akeneo\Component\BatchQueue\Queue\JobExecutionMessage;
 use Akeneo\Component\BatchQueue\Queue\JobExecutionQueueInterface;
 use Akeneo\Test\Integration\Configuration;
+use Akeneo\Test\Integration\JobLauncher;
 use Akeneo\Test\Integration\TestCase;
 use Doctrine\DBAL\Driver\Connection;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -18,6 +19,19 @@ use Symfony\Component\Console\Output\BufferedOutput;
 
 class JobQueueConsumerCommandIntegration extends TestCase
 {
+    /** @var JobLauncher */
+    protected $jobLauncher;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->jobLauncher = new JobLauncher(static::$kernel);
+    }
+
     public function testLaunchAJobExecution()
     {
         $jobExecution = $this->createJobExecution('csv_product_export', 'mary');
@@ -29,7 +43,7 @@ class JobQueueConsumerCommandIntegration extends TestCase
 
         $this->getQueue()->publish($jobExecutionMessage);
 
-        $output = $this->launchConsumer();
+        $output = $this->jobLauncher->launchConsumerOnce();
 
         $standardOutput = $output->fetch();
 
