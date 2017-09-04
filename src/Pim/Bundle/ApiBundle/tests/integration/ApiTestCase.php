@@ -260,6 +260,8 @@ abstract class ApiTestCase extends WebTestCase
      * @param array  $server
      * @param string $content
      * @param bool   $changeHistory
+     * @param string $username
+     * @param string $password
      *
      * @return array
      */
@@ -270,7 +272,9 @@ abstract class ApiTestCase extends WebTestCase
         array $files = [],
         array $server = [],
         $content = null,
-        $changeHistory = true
+        $changeHistory = true,
+        $username = self::USERNAME,
+        $password = self::PASSWORD
     ) {
         $streamedContent = '';
 
@@ -280,7 +284,7 @@ abstract class ApiTestCase extends WebTestCase
             return '';
         });
 
-        $client = $this->createAuthenticatedClient();
+        $client = $this->createAuthenticatedClient([], [], null, null, $username, $password);
         $client->setServerParameter('CONTENT_TYPE', StreamResourceResponse::CONTENT_TYPE);
         $client->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
 
